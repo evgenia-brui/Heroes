@@ -1,0 +1,23 @@
+* {margin: 0;padding: 0;box-sizing: border-box;}
+img {display: block;max-width: 100%;}
+body {background: #edeef0;color: #151515;font-family: 'Roboto Condensed', Arial, Helvetica, sans-serif;}
+.container {max-width: 1150px;margin: auto;}
+header {padding: 20px;}
+h1 {font-size: 36px;text-transform: uppercase;letter-spacing: -3px;}
+.logo-marvel {display: inline-block;margin: 3px 3px 0 0;vertical-align: top;}
+.filter-movie {columns: 4;background: #151515;color: #fff;margin: 0 0 20px 0;padding: 10px 15px;}
+.filter-movie-item {font-size: 16px;cursor: pointer;padding: 5px 10px;}
+.filter-movie-item.active, .filter-movie-item:hover {background: #e62429;color: #fff;}
+.heroes-list {display: flex;flex-wrap: wrap;margin: 0 -1%;}
+.hero {background: #151515;color: #fff;width: 23%;margin: 0 1% 2% 1%;position: relative;transition: .5s;}
+.hero:hover {background: #e62429;}
+.hero:after {border-bottom-color: transparent;border-left-color: transparent;border-right-color: #edeef0;border-style: solid;border-top-color: transparent;border-width: 20px 20px 0 0;bottom: 0;content: "";position: absolute;right: 0;top: auto;z-index: 40;}
+.hero-name {font-size: 30px;margin-bottom: 15px;}
+.hero-property + .hero-property {margin-top: 5px;}
+.hero-actors, .real-name, .hero-birthDay, .hero-deathDay {display: none;}
+.hero-photo {border-bottom: 4px solid #e62429;}
+.hero-photo img {width: 100%;height: 360px;object-fit: cover;font-family: 'object-fit: cover';}
+.hero-info {padding: 15px 20px;}
+.hero-movies {margin-top: 15px;}
+.hero-movie {display: inline-block;background: #fff;color: #151515;font-size: 14px;margin: 0 5px 5px 0;padding: 2px 4px;}
+footer {padding: 10px;text-align: center;font-size: 14px;}
