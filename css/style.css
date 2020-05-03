@@ -2,12 +2,19 @@
 img {display: block;max-width: 100%;}
 body {background: #edeef0;color: #151515;font-family: 'Roboto Condensed', Arial, Helvetica, sans-serif;}
 .container {max-width: 1150px;margin: auto;}
-header {padding: 20px;}
+
+header {padding: 20px;display: flex;justify-content: space-between;align-items: center;}
 h1 {font-size: 36px;text-transform: uppercase;letter-spacing: -3px;}
 .logo-marvel {display: inline-block;margin: 3px 3px 0 0;vertical-align: top;}
+.filter-open {font-size: 18px;font-weight: 600;background: transparent;border: none;cursor: pointer;outline: none;transition: .5s;}
+.filter-open:hover {color: #e62429;}
+.filter-reset {background: #e62429;color: #fff;border: none;margin-right: 15px;padding: 8px 10px;text-transform: uppercase;cursor: pointer;transition: .5s;}
+.filter-reset:hover {background: #151515;}
+
 .filter-movie {columns: 4;background: #151515;color: #fff;margin: 0 0 20px 0;padding: 10px 15px;}
 .filter-movie-item {font-size: 16px;cursor: pointer;padding: 5px 10px;}
 .filter-movie-item.active, .filter-movie-item:hover {background: #e62429;color: #fff;}
+
 .heroes-list {display: flex;flex-wrap: wrap;margin: 0 -1%;}
 .hero {background: #151515;color: #fff;width: 23%;margin: 0 1% 2% 1%;position: relative;transition: .5s;}
 .hero:hover {background: #e62429;}
@@ -20,4 +27,18 @@ h1 {font-size: 36px;text-transform: uppercase;letter-spacing: -3px;}
 .hero-info {padding: 15px 20px;}
 .hero-movies {margin-top: 15px;}
 .hero-movie {display: inline-block;background: #fff;color: #151515;font-size: 14px;margin: 0 5px 5px 0;padding: 2px 4px;}
+
 footer {padding: 10px;text-align: center;font-size: 14px;}
+
+.hidden {display: none;}
+.sk-wandering-cubes {width: 6em;height: 6em;position: relative;margin: 8em auto;}
+.sk-cube {background-color: #e62429;width: 1.5em;height: 1.5em;position: absolute;top: 0;left: 0;animation: sk-wandering-cubes 2.5s ease-in-out -2.5s infinite both;}
+.sk-cube-2 {animation-delay: -1.25s;}
+@keyframes sk-wandering-cubes {
+    0% {transform: rotate(0deg);}
+    25% {transform: translateX(3em) rotate(-90deg) scale(2);}
+    50% {transform: translateX(3em) translateY(3em) rotate(-179deg);}
+    50.1% {transform: translateX(3em) translateY(3em) rotate(-180deg);}
+    75% {transform: translateX(0) translateY(3em) rotate(-270deg) scale(2);}
+    100% {transform: rotate(-360deg);}
+}

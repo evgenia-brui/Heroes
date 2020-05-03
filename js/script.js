@@ -1,6 +1,8 @@
 'use strict';
 document.addEventListener('DOMContentLoaded', function(){
     const heroesList = document.querySelector('.heroes-list'),
+        filterOpen = document.querySelector('.filter-open'),
+        filterReset = document.querySelector('.filter-reset'),
         filterMovie = document.querySelector('.filter-movie');
     class AppData {
         constructor() {
@@ -9,6 +11,11 @@ document.addEventListener('DOMContentLoaded', function(){
         }
         // Запрос к базе данных
         getData() {
+            heroesList.innerHTML = `
+            <div class="sk-wandering-cubes">
+                <div class="sk-cube sk-cube-1"></div>
+                <div class="sk-cube sk-cube-2"></div>
+            </div>`;
             return new Promise((resolve, reject) => {
                 const request = new XMLHttpRequest();
                 request.open('GET', './database/dbHeroes.json');
@@ -62,7 +69,6 @@ document.addEventListener('DOMContentLoaded', function(){
                 heroesList.appendChild(card);
             });
         }
-        // Фильтрация по фильму
         // Получение списка фильмов
         getMovies() {
             this.heroes.forEach(item => {
@@ -75,6 +81,7 @@ document.addEventListener('DOMContentLoaded', function(){
             });
             this.renderFilter();
         }
+        // Отображение списка фильмов в фильтре
         renderFilter() {
             const movies = [...this.movies];
             movies.sort();
@@ -85,16 +92,40 @@ document.addEventListener('DOMContentLoaded', function(){
                 filterMovie.appendChild(item);
             }
         }
+        // Фильтрация по фильму
         filterByMovie(event) {
             const target = event.target;
             if (target.classList.contains('filter-movie-item')) {
-                const filterItems = filterMovie.children;
-                for (let item of filterItems) {
-                    item.classList.remove('active');
-                }
+                this.filterResetActive();
                 target.classList.add('active');
-                this.renderCard(this.heroes.filter(hero => hero.movies && hero.movies.includes(target.textContent)));
+                const filteredHeroes = [];
+                this.heroes.forEach(hero => {
+                    if (hero.movies) {
+                        hero.movies.forEach(movie => {
+                            if (movie.trim() === target.textContent) filteredHeroes.push(hero);
+                        });
+                    }
+                })
+                this.renderCard(filteredHeroes);
             }
+        }
+        // Убрать выбор фильма
+        filterResetActive() {
+            const filterItems = filterMovie.children;
+            for (let item of filterItems) {
+                item.classList.remove('active');
+            }
+        }
+        // Показ фильтра
+        filterToggle() {
+            filterMovie.classList.toggle('hidden');
+            filterReset.classList.toggle('hidden');
+        }
+        // Сброс фильтра
+        filterReset() {
+            this.filterResetActive();
+            this.filterToggle();
+            this.renderCard(this.heroes);
         }
         // Старт
         start() {
@@ -109,6 +140,8 @@ document.addEventListener('DOMContentLoaded', function(){
         // Обработчики событий
         handler() {
             const _this = this;
+            filterOpen.addEventListener('click', _this.filterToggle.bind(_this));
+            filterReset.addEventListener('click', _this.filterReset.bind(_this));
             filterMovie.addEventListener('click', _this.filterByMovie.bind(_this));
         }
     };
@@ -117,13 +150,8 @@ document.addEventListener('DOMContentLoaded', function(){
     console.log(appData);
 });
 /*
-2) При помощи ajax запросов к загруженному файлу сформировать на странице
-карточки Героев со всеми данными (фото, имя, настоящее имя, список фильмов, статус).
-3) Реализовать переключатели-фильтры по фильмам.
-Выпадающее меню или список, на ваше усмотрение
-Показывать только те карточки, которые подходят под выбранный фильтр.
 
-Лоадинг
 Попап
+Кпопка Вверх
 
 */
