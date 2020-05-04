@@ -137,12 +137,20 @@ document.addEventListener('DOMContentLoaded', function(){
                 });
                 this.handler();
         }
+        // Паралакс
+        parallax(event) {
+            document.querySelectorAll('.bg-stars img').forEach(layer => {
+                let speed = layer.getAttribute('data-speed');
+                layer.style.transform = `translate(${event.clientX * speed / 1000}px, ${event.clientY * speed / 1000}px)`;
+            });
+        }
         // Обработчики событий
         handler() {
             const _this = this;
             filterOpen.addEventListener('click', _this.filterToggle.bind(_this));
             filterReset.addEventListener('click', _this.filterReset.bind(_this));
             filterMovie.addEventListener('click', _this.filterByMovie.bind(_this));
+            document.addEventListener('mousemove', _this.parallax.bind(_this));
         }
     };
     const appData = new AppData();
