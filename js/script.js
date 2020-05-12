@@ -11,35 +11,6 @@ document.addEventListener('DOMContentLoaded', function(){
             this.filteredHeroes = [];
             this.movies         = new Set();
         }
-        // Запрос к базе данных
-        getData() {
-            heroesList.innerHTML = `
-            <div class="sk-wandering-cubes">
-                <div class="sk-cube sk-cube-1"></div>
-                <div class="sk-cube sk-cube-2"></div>
-            </div>`;
-            return new Promise((resolve, reject) => {
-                const request = new XMLHttpRequest();
-                request.open('GET', './database/dbHeroes.json');
-                request.setRequestHeader('Content-type', 'application/json');
-                request.addEventListener('readystatechange', () => {
-                    if (request.readyState !== 4) {
-                        return;
-                    }
-                    if (request.status === 200) {
-                        const response = JSON.parse(request.responseText);
-                        this.heroes = response;
-                        this.getMovies();
-                        resolve(response);
-                    } else {
-                        reject(request.statusText);
-                    }
-                });
-                request.send();
-            });
-        }
-        // Генерация карточек
-        createCard() {}
         // Вставка карточек на страницу
         renderCard(data) {
             const _this = this;
@@ -250,13 +221,31 @@ document.addEventListener('DOMContentLoaded', function(){
         // Старт
         start() {
             const _this = this;
-            _this.getData()
-                .then(_this.renderCard.bind(_this))
+            heroesList.innerHTML = `
+            <div class="sk-wandering-cubes">
+                <div class="sk-cube sk-cube-1"></div>
+                <div class="sk-cube sk-cube-2"></div>
+            </div>`;
+            fetch('./database/dbHeroes.json', {
+                method: 'GET'
+            })
+                .then(response => {
+                    if (response.status !== 200) {
+                        throw new Error('status network not 200');
+                    }
+                    return (response.json());
+                })
+                .then(response => {
+                    this.heroes = response;
+                    this.getMovies();
+                    this.renderCard(response);
+                })
                 .catch(error => {
                     heroesList.innerHTML = 'Произошла ошибка';
                     console.error(error);
                 });
-                _this.handler();
+            
+            this.handler();
         }
         // Паралакс
         parallax(event) {
