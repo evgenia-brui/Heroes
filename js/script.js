@@ -244,6 +244,7 @@ document.addEventListener('DOMContentLoaded', function(){
             this.filterResetActive();
             this.filterToggle();
             this.renderCard(this.heroes);
+            this.filteredHeroes = [];
         }
         // Старт
         start() {
