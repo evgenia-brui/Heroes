@@ -1,34 +1,97 @@
 * {margin: 0;padding: 0;box-sizing: border-box;}
 img {display: block;max-width: 100%;}
-body {background: #edeef0;color: #151515;font-family: 'Roboto Condensed', Arial, Helvetica, sans-serif;}
+body {background: #010743 url(../img/bg.jpg);background-position: center;background-attachment: fixed;background-size: cover;color: #fff;font-family: 'Roboto Condensed', Arial, Helvetica, sans-serif;}
 .container {max-width: 1150px;margin: auto;}
+
+.bg-stars {position: fixed;top: 0;bottom: 0;left: 0;right: 0;z-index: -1;}
+.bg-stars img {width: 150%;position: absolute;top: -5%;bottom: 0;left: -5%;right: 0;transition: .2s;}
 
 header {padding: 20px;display: flex;justify-content: space-between;align-items: center;}
 h1 {font-size: 36px;text-transform: uppercase;letter-spacing: -3px;}
 .logo-marvel {display: inline-block;margin: 3px 3px 0 0;vertical-align: top;}
-.filter-open {font-size: 18px;font-weight: 600;background: transparent;border: none;cursor: pointer;outline: none;transition: .5s;}
+.filter-open {color: #fff;font-size: 18px;font-weight: 600;background: transparent;border: none;cursor: pointer;outline: none;transition: .5s;}
 .filter-open:hover {color: #e62429;}
 .filter-reset {background: #e62429;color: #fff;border: none;margin-right: 15px;padding: 8px 10px;text-transform: uppercase;cursor: pointer;transition: .5s;}
-.filter-reset:hover {background: #151515;}
+.filter-reset:hover {background: #3f3d92;}
+@media (max-width: 530px) {
+    header {display: block;}
+    .filter-by-movie {margin-top: 15px;}
+}
 
-.filter-movie {columns: 4;background: #151515;color: #fff;margin: 0 0 20px 0;padding: 10px 15px;}
+.filter-movie {columns: 4;background: #3f3d92;color: #fff;margin: 0 0 20px 0;padding: 10px 15px;}
 .filter-movie-item {font-size: 16px;cursor: pointer;padding: 5px 10px;}
 .filter-movie-item.active, .filter-movie-item:hover {background: #e62429;color: #fff;}
+@media (max-width: 890px) {
+    .filter-movie {columns: 3;}
+}
+@media (max-width: 750px) {
+    .filter-movie {columns: 2;}
+}
+@media (max-width: 500px) {
+    .filter-movie {columns: 1;}
+}
 
 .heroes-list {display: flex;flex-wrap: wrap;margin: 0 -1%;}
-.hero {background: #151515;color: #fff;width: 23%;margin: 0 1% 2% 1%;position: relative;transition: .5s;}
+.hero {background: #3f3d92;color: #fff;width: 23%;margin: 0 1% 2% 1%;position: relative;transition: .5s;}
 .hero:hover {background: #e62429;}
-.hero:after {border-bottom-color: transparent;border-left-color: transparent;border-right-color: #edeef0;border-style: solid;border-top-color: transparent;border-width: 20px 20px 0 0;bottom: 0;content: "";position: absolute;right: 0;top: auto;z-index: 40;}
 .hero-name {font-size: 30px;margin-bottom: 15px;}
 .hero-property + .hero-property {margin-top: 5px;}
-.hero-actors, .real-name, .hero-birthDay, .hero-deathDay {display: none;}
 .hero-photo {border-bottom: 4px solid #e62429;}
 .hero-photo img {width: 100%;height: 360px;object-fit: cover;font-family: 'object-fit: cover';}
 .hero-info {padding: 15px 20px;}
 .hero-movies {margin-top: 15px;}
-.hero-movie {display: inline-block;background: #fff;color: #151515;font-size: 14px;margin: 0 5px 5px 0;padding: 2px 4px;}
+.hero-movie {display: inline-block;background: rgba(0, 0, 0, 0.3);color: #fff;font-size: 14px;margin: 0 5px 5px 0;padding: 2px 4px;}
+@media (max-width: 1210px) {
+    .container {margin: 0 30px;}
+}
+@media (max-width: 1000px) {
+    .hero {width: 29.3%;margin: 0 2% 2% 2%;}
+}
+@media (max-width: 870px) {
+    .hero {width: 46%;margin: 0 2% 2% 2%;}
+}
+@media (max-width: 600px) {
+    .hero {width: 100%;margin: 0 0 30px 0;}
+    .hero-photo img {height: 500px;}
+}
+@media (max-width: 480px) {
+    .hero-photo img {height: 330px;}
+}
 
 footer {padding: 10px;text-align: center;font-size: 14px;}
+
+.popup {position: fixed;z-index: 1000000;top: 0;bottom: 0;left: 0;right: 0;overflow-y: auto;background: rgba(63, 61, 146, 0.9);display: flex;justify-content: center;align-items: center;}
+.popup-close, .popup-prev, .popup-next {position: absolute;width: 45px;height: 45px;border: none;-webkit-mask-size: contain;-webkit-mask-repeat: no-repeat;-webkit-mask-position: center;background: #fff;cursor: pointer;transition: .5s;}
+.popup-close {top: 20px;right: 20px;-webkit-mask-image: url(../img/close.svg);}
+.popup-close:hover {background: #e62429;}
+.popup-prev, .popup-next {top: 50%;margin-top: -22px;-webkit-mask-image: url(../img/arrow-prev.svg);}
+.popup-prev  {left: 20px;-webkit-mask-image: url(../img/arrow-prev.svg);}
+.popup-next {right: 20px;-webkit-mask-image: url(../img/arrow-next.svg);}
+.popup-prev:hover, .popup-next:hover {background: #ffc107;}
+
+.hero-card-big {display: flex;width: 900px;padding: 50px;background: #00012d;}
+.hero-card-big .hero-photo {border: none;margin-right: 20px;flex: 1 0 auto;}
+.hero-card-big .hero-photo img {width: 360px;height: 490px;}
+.hero-card-big .hero-info {width: 100%;}
+.hero-card-big .real-name {color: #e62429;margin-bottom: 10px;}
+.hero-card-big .hero-actor {color: #3f3d92;margin-bottom: 20px;}
+.hero-card-big .hero-property {font-size: 20px;}
+.hero-card-big .hero-movies {margin-top: 20px;}
+.hero-card-big .hero-movie {font-size: 18px;background: #3f3d92;margin: 0 10px 10px 0;padding: 5px 10px;}
+@media (max-width: 1060px) {
+    .hero-card-big {width: 80%;margin: auto;}
+}
+@media (max-width: 990px) {
+    .hero-card-big .hero-photo img {width: 300px;}
+}
+@media (max-width: 860px) {
+    .hero-card-big {display: block;}
+    .hero-card-big .hero-photo {margin: 0 0 20px 0;}
+    .hero-card-big .hero-photo img {width: 230px;height: 300px;margin: auto;}
+}
+@media (max-width: 500px) {
+    .hero-card-big {width: 100%;}
+}
 
 .hidden {display: none;}
 .sk-wandering-cubes {width: 6em;height: 6em;position: relative;margin: 8em auto;}
