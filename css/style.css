@@ -32,7 +32,7 @@ h1 {font-size: 36px;text-transform: uppercase;letter-spacing: -3px;}
 }
 
 .heroes-list {display: flex;flex-wrap: wrap;margin: 0 -1%;}
-.hero {background: #3f3d92;color: #fff;width: 23%;margin: 0 1% 2% 1%;position: relative;transition: .5s;}
+.hero {background: #3f3d92;color: #fff;width: 23%;margin: 0 1% 2% 1%;position: relative;transition: .25s;}
 .hero:hover {background: #e62429;cursor: pointer;}
 .hero-name {font-size: 30px;margin-bottom: 15px;}
 .hero-property + .hero-property {margin-top: 5px;}
