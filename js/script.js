@@ -46,8 +46,12 @@ document.addEventListener('DOMContentLoaded', function(){
             const _this = this;
             let heroId = event.currentTarget.getAttribute('data-hero_id');
 
+            let pageWidth = document.documentElement.clientWidth;
+            window.addEventListener('resize', () => pageWidth = document.documentElement.clientWidth);
+
             const popup = document.createElement('div');
             popup.className = 'popup';
+            popup.style.opacity = 0;
             popup.innerHTML = `
                 <button class="popup-close"></button>
                 <button class="popup-prev"></button>
@@ -57,6 +61,22 @@ document.addEventListener('DOMContentLoaded', function(){
             body.appendChild(popup);
             // вызываем функцию рендера карточки и передаем в нее героя
             this.popupRender(heroId);
+
+            const animatePopup = () => this.animate({
+                duration: 300,
+                timing(timeFraction) {
+                    return timeFraction;
+                },
+                draw(progress) {
+                    popup.style.opacity = progress * 1;
+                }
+            });
+
+            if (pageWidth >= 768) {
+                animatePopup();
+            } else {
+                popup.style.opacity = 1;
+            }
 
             popup.addEventListener('click', event => {
                 event.preventDefault();
@@ -252,6 +272,24 @@ document.addEventListener('DOMContentLoaded', function(){
             document.querySelectorAll('.bg-stars img').forEach(layer => {
                 let speed = layer.getAttribute('data-speed');
                 layer.style.transform = `translate(${event.clientX * speed / 1000}px, ${event.clientY * speed / 1000}px)`;
+            });
+        }
+        // Анимация
+        animate({ timing, draw, duration }) {
+            const start = performance.now();
+            requestAnimationFrame(function animate(time) {
+                // timeFraction изменяется от 0 до 1
+                let timeFraction = (time - start) / duration;
+                if (timeFraction > 1) timeFraction = 1;
+
+                // вычисление текущего состояния анимации
+                const progress = timing(timeFraction);
+
+                draw(progress); // отрисовать её
+
+                if (timeFraction < 1) {
+                    requestAnimationFrame(animate);
+                }
             });
         }
         // Обработчики событий
