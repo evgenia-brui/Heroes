@@ -46,9 +46,6 @@ document.addEventListener('DOMContentLoaded', function(){
             const _this = this;
             let heroId = event.currentTarget.getAttribute('data-hero_id');
 
-            let pageWidth = document.documentElement.clientWidth;
-            window.addEventListener('resize', () => pageWidth = document.documentElement.clientWidth);
-
             const popup = document.createElement('div');
             popup.className = 'popup';
             popup.style.opacity = 0;
@@ -56,7 +53,9 @@ document.addEventListener('DOMContentLoaded', function(){
                 <button class="popup-close"></button>
                 <button class="popup-prev"></button>
                 <button class="popup-next"></button>
-                <div class="popup-content"></div>
+                <div class="popup-content">
+                    <div class="hero-card-big"></div>
+                </div>
             `;
             body.appendChild(popup);
             // вызываем функцию рендера карточки и передаем в нее героя
@@ -71,12 +70,7 @@ document.addEventListener('DOMContentLoaded', function(){
                     popup.style.opacity = progress * 1;
                 }
             });
-
-            if (pageWidth >= 768) {
-                animatePopup();
-            } else {
-                popup.style.opacity = 1;
-            }
+            animatePopup();
 
             popup.addEventListener('click', event => {
                 event.preventDefault();
@@ -116,7 +110,20 @@ document.addEventListener('DOMContentLoaded', function(){
         }
         // Вставка информации о герое в popup
         popupRender(heroId) {
-            const popupContent = document.querySelector('.popup-content');
+            const animatePopup = opacity => this.animate({
+                duration: 400,
+                timing(timeFraction) {
+                    return timeFraction;
+                },
+                draw(progress) {
+                    popupContent.style.opacity = progress * opacity;
+                }
+            });
+
+            const popupContent = document.querySelector('.hero-card-big');
+            popupContent.style.opacity = 1;
+            animatePopup(0);
+
             const hero = this.filteredHeroes.length === 0 ? this.heroes[heroId] : this.filteredHeroes[heroId];
             const {photo, name, realName, actors, movies, status = 'unknown', birthDay = 'unknown', deathDay = 'unknown', gender, species} = hero;
 
@@ -128,7 +135,6 @@ document.addEventListener('DOMContentLoaded', function(){
             }
 
             popupContent.innerHTML = `
-                <div class="hero-card-big">
                     <div class="hero-photo"><img src="database/${photo}" alt="${name}" /></div>
                     <div class="hero-info">
                         <h2 class="hero-name">${name}<br /><span class="real-name">${realName}</span></h2>
@@ -137,8 +143,9 @@ document.addEventListener('DOMContentLoaded', function(){
                         <div class="hero-property hero-gender">${gender} / ${species}</div>
                         <div class="hero-movies">${moviesList}</div>
                     </div>
-                </div>
             `;
+
+            animatePopup(1);
         }
         slider() {
             const slider = document.querySelector('.portfolio-content'),

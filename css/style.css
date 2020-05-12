@@ -69,7 +69,8 @@ footer {padding: 10px;text-align: center;font-size: 14px;}
 .popup-next {right: 20px;-webkit-mask-image: url(../img/arrow-next.svg);}
 .popup-prev:hover, .popup-next:hover {background: #ffc107;}
 
-.hero-card-big {display: flex;width: 900px;padding: 50px;background: #00012d;}
+.popup-content {background: #00012d;}
+.hero-card-big {display: flex;width: 900px;padding: 50px;}
 .hero-card-big .hero-photo {border: none;margin-right: 20px;flex: 1 0 auto;}
 .hero-card-big .hero-photo img {width: 360px;height: 490px;}
 .hero-card-big .hero-info {width: 100%;}
